@@ -15,13 +15,25 @@ setText("")
 
 while True:
   try:
-    # TODO:read distance value from Ultrasonic Ranger and print distance on LCD
-  
-
-    # TODO: read threshold from potentiometer
-
+# Read distance value from Ultrasonic Ranger
+    distance = grovepi.ultrasonicRead(ultrasonic_ranger)
     
-    # TODO: format LCD text according to threshhold
+    # Read threshold from potentiometer
+    # The potentiometer value will be directly used as the threshold
+    threshold = grovepi.analogRead(potentiometer)
+    
+    # Format LCD text according to threshold
+    # Top line: Threshold value and optionally "OBJ PRES"
+    # Bottom line: Current ultrasonic ranger output
+    if distance < threshold:
+        # Object is within threshold distance
+        setText_norefresh(f"{threshold} OBJ PRES\n{distance}")
+    else:
+        # No object detected within threshold distance
+        setText_norefresh(f"{threshold}\n{distance}")
+        
+    # Small delay to prevent overwhelming the GrovePi
+    time.sleep(0.1)
   
     
   except IOError:
