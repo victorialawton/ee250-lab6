@@ -27,10 +27,11 @@ while True:
     # Bottom line: Current ultrasonic ranger output
     if distance < threshold:
         # Object is within threshold distance
-        setText_norefresh(f"{threshold} OBJ PRES\n{distance}")
+        setText_norefresh(str(threshold) + " OBJ PRES\n" + str(distance))
+
     else:
         # No object detected within threshold distance
-        setText_norefresh(f"{threshold}\n{distance}")
+        setText_norefresh(str(threshold) + "               \n" + str(distance))
         
     # Small delay to prevent overwhelming the GrovePi
     time.sleep(0.1)
